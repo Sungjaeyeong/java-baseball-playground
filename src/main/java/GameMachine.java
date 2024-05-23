@@ -23,4 +23,10 @@ public class GameMachine {
 
         return result;
     }
+
+    public void gameStart() {
+        generateUniqueThreeDigitArray();
+        InputView inputView = new InputView();
+        int enteredNumber = inputView.enterNumber();
+    }
 }
