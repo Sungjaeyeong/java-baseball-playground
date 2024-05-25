@@ -14,6 +14,16 @@ public class GameMachine {
         this.resultView = resultView;
     }
 
+    public void gameStart() {
+        int[] computerNumber = generateUniqueThreeDigitArray();
+        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
+
+        playTurn(computerNumber);
+        resultView.printEnd();
+
+        selectContinue(inputView);
+    }
+
     int oneToNineRandomNumber() {
         Random random = new Random();
         return 1 + random.nextInt(9);
@@ -35,16 +45,6 @@ public class GameMachine {
         return result;
     }
 
-    public void gameStart() {
-        int[] computerNumber = generateUniqueThreeDigitArray();
-        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
-
-        playTurn(computerNumber);
-        resultView.printEnd();
-
-        selectContinue(inputView);
-    }
-
     private void selectContinue(InputView inputView) {
         if (inputView.continueNumber() == 1) {
             strikes = 0;
@@ -64,7 +64,8 @@ public class GameMachine {
 
             calculateScore(computerNumber, userGuess);
 
-            generateResultMessage();
+            String resultMessage = generateResultMessage();
+            resultView.printResult(resultMessage);
         }
     }
 
@@ -93,13 +94,13 @@ public class GameMachine {
         }
     }
 
-    private void generateResultMessage() {
+    private String generateResultMessage() {
         String result = "";
         if (balls > 0) result = balls + "볼";
         if (strikes > 0) result += strikes + "스트라이크";
         if (result.isEmpty()) result = "포볼";
 
-        resultView.printResult(result);
+        return result;
     }
 
     public static boolean contains(int[] array, int value) {
