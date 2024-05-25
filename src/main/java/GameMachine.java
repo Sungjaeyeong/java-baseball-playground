@@ -6,8 +6,7 @@ import java.util.Set;
 public class GameMachine {
     final InputView inputView;
     final ResultView resultView;
-    private int strikes;
-    private int balls;
+    ScoreManager scoreManager;
 
     public GameMachine(InputView inputView, ResultView resultView) {
         this.inputView = inputView;
@@ -47,68 +46,21 @@ public class GameMachine {
 
     private void selectContinue(InputView inputView) {
         if (inputView.continueNumber() == 1) {
-            strikes = 0;
-            balls = 0;
+            scoreManager.initScore();
             gameStart();
         }
     }
 
     private void playTurn(int[] computerNumber) {
-        while (strikes < 3) {
-            strikes = 0;
-            balls = 0;
+        scoreManager = new ScoreManager(computerNumber);
+        while (!scoreManager.isPerfect()) {
+            scoreManager.initScore();
 
             int enteredNumber = inputView.enterNumber();
-            String enteredNumberString = String.valueOf(enteredNumber);
-            String[] userGuess = enteredNumberString.split("");
+            scoreManager.calculate(enteredNumber);
 
-            calculateScore(computerNumber, userGuess);
-
-            String resultMessage = generateResultMessage();
+            String resultMessage = scoreManager.generateResultMessage();
             resultView.printResult(resultMessage);
         }
-    }
-
-    private void calculateScore(int[] computerNumber, String[] userGuess) {
-        for (int i = 0; i < 3; i++) {
-            int guessedNumber = Integer.parseInt(userGuess[i]);
-            checkStrikeOrBall(computerNumber, guessedNumber, i);
-        }
-    }
-
-    private void checkStrikeOrBall(int[] computerNumber, int guessedNumber, int index) {
-        if (isStrike(computerNumber, guessedNumber, index)) {
-            strikes++;
-            return;
-        }
-        checkBall(computerNumber, guessedNumber);
-    }
-
-    private boolean isStrike(int[] computerNumber, int guessedNumber, int index) {
-        return guessedNumber == computerNumber[index];
-    }
-
-    private void checkBall(int[] computerNumber, int guessedNumber) {
-        if (contains(computerNumber, guessedNumber)) {
-            balls++;
-        }
-    }
-
-    private String generateResultMessage() {
-        String result = "";
-        if (balls > 0) result = balls + "볼";
-        if (strikes > 0) result += strikes + "스트라이크";
-        if (result.isEmpty()) result = "포볼";
-
-        return result;
-    }
-
-    public static boolean contains(int[] array, int value) {
-        for (int element : array) {
-            if (element == value) {
-                return true;
-            }
-        }
-        return false;
     }
 }
