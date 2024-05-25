@@ -31,7 +31,24 @@ class GameMachineTest {
             uniqueNumbers.add(number);
         }
 
-        // uniqueNumbers의 크기가 3인지 확인
         assertThat(uniqueNumbers.size()).isEqualTo(3);
+    }
+
+    @DisplayName("contains 함수는 특정 값을 포함하고 있는 경우 true 를 반환")
+    @Test
+    void containsTrue() {
+        int[] numbers = {1, 2, 3};
+        int includeNumber = 1;
+
+        assertTrue(GameMachine.contains(numbers, includeNumber));
+    }
+
+    @DisplayName("contains 함수는 특정 값을 포함하지 않는 경우 false 를 반환")
+    @Test
+    void containsFalse() {
+        int[] numbers = {1, 2, 3};
+        int excludeNumber = 4;
+
+        assertFalse(GameMachine.contains(numbers, excludeNumber));
     }
 }
