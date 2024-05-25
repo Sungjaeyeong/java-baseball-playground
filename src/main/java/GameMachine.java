@@ -32,6 +32,23 @@ public class GameMachine {
         int[] computerNumber = generateUniqueThreeDigitArray();
         System.out.println("computerNumber = " + Arrays.toString(computerNumber));
 
+        playTurn(computerNumber);
+        ResultView resultView = new ResultView();
+        resultView.printEnd();
+        InputView inputView = new InputView();
+
+        selectContinue(inputView);
+    }
+
+    private void selectContinue(InputView inputView) {
+        if (inputView.continueNumber() == 1) {
+            strikes = 0;
+            balls = 0;
+            gameStart();
+        }
+    }
+
+    private void playTurn(int[] computerNumber) {
         while (strikes < 3) {
             strikes = 0;
             balls = 0;
@@ -41,33 +58,45 @@ public class GameMachine {
             String enteredNumberString = String.valueOf(enteredNumber);
             String[] userGuess = enteredNumberString.split("");
 
-            for (int i = 0; i < 3; i++) {
-                if (Integer.parseInt(userGuess[i]) == computerNumber[i]) {
-                    strikes++;
-                } else if (contains(computerNumber, Integer.parseInt(userGuess[i]))) {
-                    balls++;
-                }
-            }
+            calculateScore(computerNumber, userGuess);
 
-            String result = "";
-            if (balls > 0) result = balls + "볼";
-            if (strikes > 0) result += strikes + "스트라이크";
-            if (result.isEmpty()) result = "포볼";
-
-            System.out.println(result);
+            generateResultMessage();
         }
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    }
 
-        InputView inputView = new InputView();
-        int enteredNumber = inputView.enterNumber();
-
-        if (enteredNumber == 1) {
-            strikes = 0;
-            balls = 0;
-            gameStart();
+    private void calculateScore(int[] computerNumber, String[] userGuess) {
+        for (int i = 0; i < 3; i++) {
+            int guessedNumber = Integer.parseInt(userGuess[i]);
+            checkStrikeOrBall(computerNumber, guessedNumber, i);
         }
-        if (enteredNumber == 2) return;
+    }
+
+    private void checkStrikeOrBall(int[] computerNumber, int guessedNumber, int index) {
+        if (isStrike(computerNumber, guessedNumber, index)) {
+            strikes++;
+            return;
+        }
+        checkBall(computerNumber, guessedNumber);
+    }
+
+    private boolean isStrike(int[] computerNumber, int guessedNumber, int index) {
+        return guessedNumber == computerNumber[index];
+    }
+
+    private void checkBall(int[] computerNumber, int guessedNumber) {
+        if (contains(computerNumber, guessedNumber)) {
+            balls++;
+        }
+    }
+
+    private void generateResultMessage() {
+        String result = "";
+        if (balls > 0) result = balls + "볼";
+        if (strikes > 0) result += strikes + "스트라이크";
+        if (result.isEmpty()) result = "포볼";
+
+        ResultView resultView = new ResultView();
+        resultView.printResult(result);
     }
 
     public static boolean contains(int[] array, int value) {
