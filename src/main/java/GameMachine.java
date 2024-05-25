@@ -4,8 +4,15 @@ import java.util.Random;
 import java.util.Set;
 
 public class GameMachine {
+    final InputView inputView;
+    final ResultView resultView;
     private int strikes;
     private int balls;
+
+    public GameMachine(InputView inputView, ResultView resultView) {
+        this.inputView = inputView;
+        this.resultView = resultView;
+    }
 
     int oneToNineRandomNumber() {
         Random random = new Random();
@@ -33,9 +40,7 @@ public class GameMachine {
         System.out.println("computerNumber = " + Arrays.toString(computerNumber));
 
         playTurn(computerNumber);
-        ResultView resultView = new ResultView();
         resultView.printEnd();
-        InputView inputView = new InputView();
 
         selectContinue(inputView);
     }
@@ -53,7 +58,6 @@ public class GameMachine {
             strikes = 0;
             balls = 0;
 
-            InputView inputView = new InputView();
             int enteredNumber = inputView.enterNumber();
             String enteredNumberString = String.valueOf(enteredNumber);
             String[] userGuess = enteredNumberString.split("");
@@ -95,7 +99,6 @@ public class GameMachine {
         if (strikes > 0) result += strikes + "스트라이크";
         if (result.isEmpty()) result = "포볼";
 
-        ResultView resultView = new ResultView();
         resultView.printResult(result);
     }
 

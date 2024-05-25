@@ -13,7 +13,7 @@ class GameMachineTest {
     @DisplayName("1부터 9까지의 랜덤한 수 생성")
     @Test
     void oneToNineRandomNumber() {
-        GameMachine gameMachine = new GameMachine();
+        GameMachine gameMachine = new GameMachine(new InputView(), new ResultView());
         int number = gameMachine.oneToNineRandomNumber();
         assertThat(number).isBetween(1, 9);
     }
@@ -21,7 +21,7 @@ class GameMachineTest {
     @DisplayName("서로 다른 3자리 수 생성")
     @Test
     void generateUniqueThreeDigitArray() {
-        GameMachine gameMachine = new GameMachine();
+        GameMachine gameMachine = new GameMachine(new InputView(), new ResultView());
         int[] numbers = gameMachine.generateUniqueThreeDigitArray();
         assertThat(numbers.length).isEqualTo(3);
 
