@@ -1,13 +1,8 @@
 public class ScoreManager {
-    final int [] answer;
     private int strikes;
     private int balls;
 
-    public ScoreManager(int[] answer) {
-        this.answer = answer;
-    }
-
-    public void calculate(int enteredNumber) {
+    public void calculate(int[] answer, int enteredNumber) {
         String enteredNumberString = String.valueOf(enteredNumber);
         String[] userGuess = enteredNumberString.split("");
 

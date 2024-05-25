@@ -1,9 +1,10 @@
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 public class Generator {
-    public static int[] generateUniqueThreeDigitArray() {
+    public static int[] generateAnswer() {
         Set<Integer> uniqueNumbers = new HashSet<>();
 
         while (uniqueNumbers.size() < 3) {
@@ -15,6 +16,7 @@ public class Generator {
         for (int number : uniqueNumbers) {
             result[i++] = number;
         }
+        System.out.println("answer = " + Arrays.toString(result));
 
         return result;
     }
