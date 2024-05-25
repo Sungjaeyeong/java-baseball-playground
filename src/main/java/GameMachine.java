@@ -30,17 +30,31 @@ public class GameMachine {
 
     public void gameStart() {
         int[] computerNumber = generateUniqueThreeDigitArray();
-        InputView inputView = new InputView();
-        int enteredNumber = inputView.enterNumber();
-        String enteredNumberString = String.valueOf(enteredNumber);
-        String[] userGuess = enteredNumberString.split("");
+        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
 
-        for (int i = 0; i < 3; i++) {
-            if (Integer.parseInt(userGuess[i]) == computerNumber[i]) {
-                strikes++;
-            } else if (contains(computerNumber, Integer.parseInt(userGuess[i]))) {
-                balls++;
+        while (strikes < 3) {
+            strikes = 0;
+            balls = 0;
+
+            InputView inputView = new InputView();
+            int enteredNumber = inputView.enterNumber();
+            String enteredNumberString = String.valueOf(enteredNumber);
+            String[] userGuess = enteredNumberString.split("");
+
+            for (int i = 0; i < 3; i++) {
+                if (Integer.parseInt(userGuess[i]) == computerNumber[i]) {
+                    strikes++;
+                } else if (contains(computerNumber, Integer.parseInt(userGuess[i]))) {
+                    balls++;
+                }
             }
+
+            String result = "";
+            if (balls > 0) result = balls + "볼";
+            if (strikes > 0) result += strikes + "스트라이크";
+            if (result.isEmpty()) result = "포볼";
+
+            System.out.println(result);
         }
 
     }
