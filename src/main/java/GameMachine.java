@@ -56,7 +56,18 @@ public class GameMachine {
 
             System.out.println(result);
         }
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
+        InputView inputView = new InputView();
+        int enteredNumber = inputView.enterNumber();
+
+        if (enteredNumber == 1) {
+            strikes = 0;
+            balls = 0;
+            gameStart();
+        }
+        if (enteredNumber == 2) return;
     }
 
     public static boolean contains(int[] array, int value) {
