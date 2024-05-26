@@ -2,6 +2,14 @@ public class ScoreManager {
     private int strikes;
     private int balls;
 
+    public int getStrikes() {
+        return strikes;
+    }
+
+    public int getBalls() {
+        return balls;
+    }
+
     public void calculate(int[] answer, int enteredNumber) {
         String enteredNumberString = String.valueOf(enteredNumber);
         String[] userGuess = enteredNumberString.split("");
