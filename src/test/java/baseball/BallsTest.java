@@ -20,4 +20,10 @@ class BallsTest {
                 .withMessageMatching("각 번호는 서로 같을 수 없습니다.");
     }
 
+    @Test
+    void isStrikeTest() {
+        Balls balls = new Balls(1, 2, 3);
+        Ball ball = new Ball(1, BallOrder.FIRST);
+        assertTrue(balls.isStrike(ball));
+    }
 }
