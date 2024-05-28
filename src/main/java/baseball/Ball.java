@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class Ball {
     int no;
+    BallOrder ballOrder;
 
-    public Ball(int no) {
+    public Ball(int no, BallOrder ballOrder) {
         validate(no);
         this.no = no;
+        this.ballOrder = ballOrder;
     }
 
     private static void validate(int no) {
