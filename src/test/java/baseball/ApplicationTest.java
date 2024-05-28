@@ -15,13 +15,13 @@ class ApplicationTest {
         List<Ball> answer = computer.createAnswer();
         assertThat(answer.size()).isEqualTo(3);
 
-        int firstBallNo = answer.get(0).getNo();
-        int secondBallNo = answer.get(1).getNo();
-        int thirdBallNo = answer.get(2).getNo();
+        Ball firstBall = answer.get(0);
+        Ball secondBall = answer.get(1);
+        Ball thirdBall = answer.get(2);
 
-        assertThat(firstBallNo).isNotEqualTo(secondBallNo);
-        assertThat(firstBallNo).isNotEqualTo(thirdBallNo);
-        assertThat(secondBallNo).isNotEqualTo(thirdBallNo);
+        assertThat(firstBall).isNotEqualTo(secondBall);
+        assertThat(firstBall).isNotEqualTo(thirdBall);
+        assertThat(secondBall).isNotEqualTo(thirdBall);
     }
 
 }
