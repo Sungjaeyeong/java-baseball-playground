@@ -3,6 +3,7 @@ package baseball;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class Balls {
     List<Ball> ballList;
@@ -19,6 +20,9 @@ public class Balls {
     }
 
     public boolean isStrike(Ball ball) {
-        return true;
+        Optional<Ball> sameOrderBall = ballList.stream()
+                .filter(it -> it.ballOrder.equals(ball.ballOrder) && it.no == ball.no)
+                .findFirst();
+        return sameOrderBall.isPresent();
     }
 }
