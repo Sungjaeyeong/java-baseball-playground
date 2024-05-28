@@ -15,4 +15,8 @@ public class Ball {
     private static boolean isValidNo(int no) {
         return no < 1 || no > 9;
     }
+
+    public int getNo() {
+        return this.no;
+    }
 }
