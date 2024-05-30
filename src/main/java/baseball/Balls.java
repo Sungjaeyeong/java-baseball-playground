@@ -25,4 +25,8 @@ public class Balls {
                 .findFirst();
         return sameOrderBall.isPresent();
     }
+
+    public boolean isBall(Ball ball) {
+        return !isStrike(ball) && ballList.contains(ball);
+    }
 }

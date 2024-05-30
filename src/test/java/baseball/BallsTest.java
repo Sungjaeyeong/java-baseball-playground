@@ -26,4 +26,14 @@ class BallsTest {
         Ball ball = new Ball(1, BallOrder.FIRST);
         assertTrue(balls.isStrike(ball));
     }
+
+    @Test
+    void isBallTest() {
+        Balls balls = new Balls(1, 2, 3);
+        Ball strikeBall = new Ball(1, BallOrder.FIRST);
+        assertFalse(balls.isBall(strikeBall));
+
+        Ball ball = new Ball(2, BallOrder.FIRST);
+        assertTrue(balls.isBall(ball));
+    }
 }
