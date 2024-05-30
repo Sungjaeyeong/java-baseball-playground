@@ -12,7 +12,7 @@ class ApplicationTest {
     @Test
     void createAnswer() {
         Computer computer = new Computer();
-        List<Ball> answer = computer.createAnswer();
+        Balls answer = computer.createAnswer();
         assertThat(answer.size()).isEqualTo(3);
 
         Ball firstBall = answer.get(0);
